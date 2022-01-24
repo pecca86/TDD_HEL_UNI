@@ -25,6 +25,7 @@ export class Board {
 
   drop(block) {
     //this.board.
-    this.board = ".X.\n...\n...\n";
+    //this.board = `.${block.toString()}.\n...\n...\n`;
+    this.board = `.${block}.\n...\n...\n`;
   }
 }
