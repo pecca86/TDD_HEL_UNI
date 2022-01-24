@@ -9,6 +9,8 @@ export class Board {
     this.initializeBoard();
   }
 
+
+  /* Initializes an empty board */
   initializeBoard() {
     for (let i = 0; i < this.height; i++) {
       this.board = this.board.concat(".".repeat(this.width)+"\n");
@@ -23,9 +25,16 @@ export class Board {
     return this.board;
   }
 
+  /* Drops the given block starting from the middle position of the board */
   drop(block) {
-    //this.board.
-    //this.board = `.${block.toString()}.\n...\n...\n`;
     this.board = `.${block}.\n...\n...\n`;
   }
+
+  
+  /* Moves the block one level downwards */
+  tick() {
+    this.board = "...\n.X.\n...\n";
+  }
 }
+
+
