@@ -39,13 +39,16 @@ export class Board {
   /* Drops the given block starting from the middle position of the board */
   drop(block) {
     //this.board = `.${block}.\n...\n...\n`;
-    this.testBoard[0] = ".X.\n";
+    this.testBoard[0] = `.${block}.\n`;
   }
 
 
   /* Moves the block one level downwards */
   tick() {
-    this.board = "...\n.X.\n...\n";
+    //this.testBoard[0] = "wkodkwo"
+    let tmp = this.testBoard[1];
+    this.testBoard[1] = this.testBoard[0];
+    this.testBoard[0] = tmp;
   }
 }
 
