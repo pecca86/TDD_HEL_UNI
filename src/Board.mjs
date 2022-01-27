@@ -76,26 +76,25 @@ export class Board {
     /* let tmp = this.testBoard[1];
     this.testBoard[1] = this.testBoard[0];
     this.testBoard[0] = tmp; */
-
-
-    //this.board = `...\n.${this.block}.\n...\n`;
-
-    this.board = "";
-
-    // Check 
-    for (let row = 0; row < this.width; row++) {
-        for (let  col = 0; col < this.height; col++) {
-        if (col == 1 && row == this.fallingBlockRow) {
-          this.board = this.board.concat("X");
-        } else {
-          this.board = this.board.concat(".");
+    
+    // Check if there is still a block falling
+    // If not, enable the block to tick down one row
+    if (this.fallingBlockRow == this.height) {
+      this.isFalling = false;
+    } else {
+      this.board = "";
+      for (let row = 0; row < this.width; row++) {
+          for (let  col = 0; col < this.height; col++) {
+          if (col == 1 && row == this.fallingBlockRow) {
+            this.board = this.board.concat("X");
+          } else {
+            this.board = this.board.concat(".");
+          }
         }
+        this.board = this.board.concat("\n");
       }
-      this.board = this.board.concat("\n");
+      this.fallingBlockRow++;
     }
-    this.fallingBlockRow++;
-
-    //TODO: Check if block reached the bottom
   }
 }
 
