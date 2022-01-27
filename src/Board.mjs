@@ -58,11 +58,16 @@ export class Board {
 
   /* Drops the given block starting from the middle position of the board */
   drop(block) {
-    this.block = block;
-    this.board = `.${this.block}.\n...\n...\n`;
-    //this.testBoard[0] = `.${block}.\n`;
-    this.isFalling = true;
-    this.fallingBlockRow++;
+    // Check if there is already a block falling, if so throw error
+    if (this.isFalling) {
+      throw new Error("already falling");
+    } else {
+      this.block = block;
+      this.board = `.${this.block}.\n...\n...\n`;
+      //this.testBoard[0] = `.${block}.\n`;
+      this.isFalling = true;
+      this.fallingBlockRow++;
+    }
   }
 
 
@@ -77,9 +82,10 @@ export class Board {
 
     this.board = "";
 
+    // Check 
     for (let row = 0; row < this.width; row++) {
         for (let  col = 0; col < this.height; col++) {
-        if (col == this.fallingBlockRow && row == this.fallingBlockRow) {
+        if (col == 1 && row == this.fallingBlockRow) {
           this.board = this.board.concat("X");
         } else {
           this.board = this.board.concat(".");
@@ -88,6 +94,8 @@ export class Board {
       this.board = this.board.concat("\n");
     }
     this.fallingBlockRow++;
+
+    //TODO: Check if block reached the bottom
   }
 }
 
