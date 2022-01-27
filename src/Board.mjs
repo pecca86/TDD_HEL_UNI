@@ -62,14 +62,32 @@ export class Board {
     this.board = `.${this.block}.\n...\n...\n`;
     //this.testBoard[0] = `.${block}.\n`;
     this.isFalling = true;
+    this.fallingBlockRow++;
   }
 
 
   /* Moves the block one level downwards */
   tick() {
-    let tmp = this.testBoard[1];
+    /* let tmp = this.testBoard[1];
     this.testBoard[1] = this.testBoard[0];
-    this.testBoard[0] = tmp;
+    this.testBoard[0] = tmp; */
+
+
+    //this.board = `...\n.${this.block}.\n...\n`;
+
+    this.board = "";
+
+    for (let row = 0; row < this.width; row++) {
+        for (let  col = 0; col < this.height; col++) {
+        if (col == this.fallingBlockRow && row == this.fallingBlockRow) {
+          this.board = this.board.concat("X");
+        } else {
+          this.board = this.board.concat(".");
+        }
+      }
+      this.board = this.board.concat("\n");
+    }
+    this.fallingBlockRow++;
   }
 }
 
