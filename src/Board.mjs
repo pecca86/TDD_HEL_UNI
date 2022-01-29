@@ -6,6 +6,7 @@ export class Board {
   isFalling = false;
   block;
   fallingBlockRow = 0;
+  isInitialized = false;
 
   constructor(width, height) {
     this.width = width;
@@ -32,11 +33,11 @@ export class Board {
   String representation of the board
   */
   toString() {
-    /* let strrep = "";
-    this.testBoard.forEach(item => strrep = strrep.concat(...item))
-    return strrep; */
-    //return this.testBoard.join("").toString();
-    return this.board;
+    //let strrep = "";
+    //this.testBoard.forEach(item => strrep = strrep.concat(...item))
+    //return strrep;
+    return this.testBoard.join("").toString();
+    //return this.board;
   }
 
 
@@ -46,7 +47,7 @@ export class Board {
   }
 
 
-  // Checks if 
+  // Checks if there is still a falling block at given row
   hasFallingAtRow() {
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
@@ -62,31 +63,46 @@ export class Board {
     if (this.isFalling) {
       throw new Error("already falling");
     } else {
+      this.isFalling = true;
       this.block = block;
       this.board = `.${this.block}.\n...\n...\n`;
-      //this.testBoard[0] = `.${block}.\n`;
-      this.isFalling = true;
-      this.fallingBlockRow++;
+      this.testBoard[0] = `.${block}.\n`;
+      //this.fallingBlockRow++;
     }
   }
 
 
+
+  // TODO: SAVE THE BOARD STATE!
+
   /* Moves the block one level downwards */
   tick() {
-    /* let tmp = this.testBoard[1];
-    this.testBoard[1] = this.testBoard[0];
-    this.testBoard[0] = tmp; */
-    
+
+    if (this.isFalling) {
+      let tmp = this.testBoard[this.fallingBlockRow+1];
+      this.testBoard[this.fallingBlockRow+1] = this.testBoard[this.fallingBlockRow];
+      this.testBoard[this.fallingBlockRow] = tmp;
+      this.fallingBlockRow++;
+
+      // Check if block reached to bottom
+      if (this.fallingBlockRow === this.height) {
+        this.isFalling = false;
+      }
+    }
+
+
+
+
     // Check if there is still a block falling
     // If not, enable the block to tick down one row
-    if (this.fallingBlockRow == this.height) {
+    /* if (this.fallingBlockRow == this.height) {
       this.isFalling = false;
     } else {
       this.board = "";
       for (let row = 0; row < this.width; row++) {
-          for (let  col = 0; col < this.height; col++) {
+        for (let col = 0; col < this.height; col++) {
           if (col == 1 && row == this.fallingBlockRow) {
-            this.board = this.board.concat("X");
+            this.board = this.board.concat(this.block);
           } else {
             this.board = this.board.concat(".");
           }
@@ -94,7 +110,7 @@ export class Board {
         this.board = this.board.concat("\n");
       }
       this.fallingBlockRow++;
-    }
+    } */
   }
 }
 

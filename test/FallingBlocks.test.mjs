@@ -80,7 +80,7 @@ describe("Falling blocks", () => {
   });
  
 
-  /*
+  
   describe("When a block lands on another block", () => {
     beforeEach(() => {
       board.drop(new Block("X"));
@@ -91,7 +91,7 @@ describe("Falling blocks", () => {
       board.tick();
     });
 
-    it("it is still moving on the row above the other block", () => {
+    xit("it is still moving on the row above the other block", () => {
       expect(board.toString()).to.equalShape(
         `...
          .Y.
@@ -114,5 +114,5 @@ describe("Falling blocks", () => {
       expect(board.hasFalling(), "the block should stop moving").to.be.false;
     });
   });
-  */
+ 
 });
