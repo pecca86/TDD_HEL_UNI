@@ -5,7 +5,7 @@ export class Board {
   testBoard = [];
   isFalling = false;
   block;
-  fallingBlockRow = 0;
+  fallingBlockRow;
   isInitialized = false;
 
   constructor(width, height) {
@@ -63,6 +63,7 @@ export class Board {
     if (this.isFalling) {
       throw new Error("already falling");
     } else {
+      this.fallingBlockRow = 0;
       this.isFalling = true;
       this.block = block;
       this.board = `.${this.block}.\n...\n...\n`;
@@ -79,14 +80,22 @@ export class Board {
   tick() {
 
     if (this.isFalling) {
+      // TODO: Check if row already consists of a previous block
+      // Possible solution: height - 1 
+/*       if (this.testBoard[this.fallingBlockRow] !== "...\n") {
+        //return;
+      } */
+
       let tmp = this.testBoard[this.fallingBlockRow+1];
       this.testBoard[this.fallingBlockRow+1] = this.testBoard[this.fallingBlockRow];
       this.testBoard[this.fallingBlockRow] = tmp;
       this.fallingBlockRow++;
-
+      
       // Check if block reached to bottom
+      // Reduce height by one, since this row is now occupied
       if (this.fallingBlockRow === this.height) {
         this.isFalling = false;
+        this.height -= 1;
       }
     }
 
