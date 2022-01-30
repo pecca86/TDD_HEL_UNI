@@ -52,13 +52,23 @@ export class Board {
       this.isFalling = true;
       this.block = block;
       // TODO: Refactor: Needs to check if there is an existing block at row 0
-      this.setBlockToBoard(0, 0);
+      this.setBlockToBoard(0, 1);
     }
   }
 
   // Puts the block into given row and column
   setBlockToBoard(row, col) {
-    this.gameBoard[row] = `.${this.block}.\n`;
+    let rowString = "";
+    for (let i = 0; i < this.width; i++) {
+      if (i === col) {
+        rowString = rowString.concat(this.block);
+      } else {
+        rowString = rowString.concat(".");
+      }
+    }
+    rowString = rowString.concat("\n");
+    this.gameBoard[row] = rowString;
+    //`.${this.block}.\n`;
   }
 
   /* Moves the block one level downwards */
